@@ -13,7 +13,7 @@ public class Dictionary {
 
     public List<String> createWordList(){
         ArrayList<String> words = new ArrayList<String>();
-        File dictionaryFile = new File("src/dictionary.txt");
+        File dictionaryFile = new File("src/dictionaryAsisten.txt");
         try{
             Scanner scan = new Scanner(dictionaryFile);
             while (scan.hasNextLine()) {
@@ -62,13 +62,7 @@ public class Dictionary {
         return similarWords;
     }
 
-    public int getLetterDifference(String word1, String word2){
-        int difference = 0;
-        for(int i = 0; i < word1.length(); i++){
-            if(word1.charAt(i) != word2.charAt(i)){
-                difference++;
-            }
-        }
-        return difference;
+    public boolean isInDictionary(String word){
+        return this.words.contains(word);
     }
 }
