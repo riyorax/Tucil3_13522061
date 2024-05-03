@@ -1,12 +1,15 @@
+import java.util.*;
+
 public class Node implements Comparable<Node>{
     private String currentWord;
     private int value;
-    private String[] paths;
+    private List<String> paths;
 
-    public Node(String currentWord, int value, String[] paths) {
+    public Node(String currentWord, int value,List<String> paths){
         this.currentWord = currentWord;
         this.value = value;
-        this.paths = paths;
+        this.paths= new ArrayList<>(paths);
+        this.paths.add(currentWord);
     }
 
     public int compareTo(Node other) {
@@ -14,14 +17,14 @@ public class Node implements Comparable<Node>{
     }
 
     public String getCurrentWord() {
-        return currentWord;
+        return this.currentWord;
     }
 
     public int getValue() {
-        return value;
+        return this.value;
     }
 
-    public String[] getPaths() {
-        return paths;
+    public List<String> getPaths() {
+        return this.paths;
     }
 }

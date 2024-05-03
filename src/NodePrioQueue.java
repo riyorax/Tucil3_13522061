@@ -14,4 +14,8 @@ public class NodePrioQueue {
     public Node remove() {
         return queue.poll();
     }
+
+    public boolean isEmpty() {
+        return queue.isEmpty();
+    }
 }
