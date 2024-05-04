@@ -1,18 +1,22 @@
 import java.util.*;
 
 public class Solver {
-    private Dictionary dictionary;
-    private Set<String> isVisited;
+    private Dictionary dictionary;;
     private NodePrioQueue queue;
+    private int nodeTraversed;
 
     public Solver() {
         this.dictionary = new Dictionary();
-        this.isVisited = new HashSet<>();
         this.queue = new NodePrioQueue();
+        this.nodeTraversed = 0;
     }
 
     public Dictionary getDictionary() {
         return dictionary;
+    }
+
+    public int getNodeTraversed() {
+        return nodeTraversed;
     }
 
     public int getLetterDifference(String word1, String word2){
@@ -26,7 +30,7 @@ public class Solver {
     }
 
     public int gN(Node node, String childWord){
-        return node.getValue() + getLetterDifference(node.getCurrentWord(), childWord);
+        return node.getValue() + 1;
     }
 
     public int hN(String currentWord, String endWord){
@@ -38,16 +42,16 @@ public class Solver {
     }
 
     public List<String> solveUCS(String startWord, String endWord) {
-        if(startWord.length() != endWord.length()){
-            return new ArrayList<>();
-        }
+        this.nodeTraversed = 0;
         List<String> initPath = new ArrayList<>();
+        Set<String>isVisited = new HashSet<>();
         Node startNode = new Node(startWord, 0, initPath);
         queue.addNode(startNode);
         isVisited.add(startWord);
 
         while(!queue.isEmpty()){
             Node currentNode = queue.remove();
+            this.nodeTraversed++;
 
             if (currentNode.getCurrentWord().equals(endWord)) {
                 return currentNode.getPaths();
@@ -66,16 +70,16 @@ public class Solver {
     }
 
     public List<String> solveGBFS(String startWord, String endWord) {
-        if(startWord.length() != endWord.length()){
-            return new ArrayList<>();
-        }
+        this.nodeTraversed = 0;
         List<String> initPath = new ArrayList<>();
+        Set<String>isVisited = new HashSet<>();
         Node startNode = new Node(startWord, hN(startWord, endWord), initPath);
         queue.addNode(startNode);
         isVisited.add(startWord);
 
         while(!queue.isEmpty()){
             Node currentNode = queue.remove();
+            this.nodeTraversed++;
 
             if (currentNode.getCurrentWord().equals(endWord)) {
                 return currentNode.getPaths();
@@ -84,8 +88,7 @@ public class Solver {
             List<String> children = dictionary.getSimilarWords(currentNode.getCurrentWord());
             for (String child : children) {
                 if (!isVisited.contains(child)) {
-
-                    Node newNode = new Node(child, fN(currentNode, child, endWord), currentNode.getPaths());
+                    Node newNode = new Node(child, hN(child, endWord), currentNode.getPaths());
                     queue.addNode(newNode);
                     isVisited.add(child);
                 }
@@ -95,16 +98,16 @@ public class Solver {
     }
 
     public List<String> solveAStar(String startWord, String endWord) {
-        if(startWord.length() != endWord.length()){
-            return new ArrayList<>();
-        }
+        this.nodeTraversed = 0;
         List<String> initPath = new ArrayList<>();
         Node startNode = new Node(startWord, hN(startWord, endWord), initPath);
         queue.addNode(startNode);
+        Set<String>isVisited = new HashSet<>();
         isVisited.add(startWord);
 
         while(!queue.isEmpty()){
             Node currentNode = queue.remove();
+            this.nodeTraversed++;
 
             if (currentNode.getCurrentWord().equals(endWord)) {
                 return currentNode.getPaths();
@@ -113,7 +116,7 @@ public class Solver {
             List<String> children = dictionary.getSimilarWords(currentNode.getCurrentWord());
             for (String child : children) {
                 if (!isVisited.contains(child)) {
-                    Node newNode = new Node(child, hN(child, endWord) + gN(currentNode, child), currentNode.getPaths());
+                    Node newNode = new Node(child, fN(currentNode, child, endWord), currentNode.getPaths());
                     queue.addNode(newNode);
                     isVisited.add(child);
                 }
