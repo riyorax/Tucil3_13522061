@@ -35,6 +35,13 @@ Untuk menjalankan program ini maka dibutuhkan IDE IntelliJ yang merupakan IDE kh
 ## Usage
 Jika sudah mengunduh maka buat project baru dari repository dan masukkan link repository ini. Kemudian telusuri src dan masuk ke Main.java dan click run pada kanan atas
 
+Jika ingin mengubah dictionary yang dipakai maka masuk ke src dan buka Dictionary.java dan ganti dictionary.txt pada
+```shell
+File dictionaryFile = new File("src/dictionaryAsisten.txt");
+```
+Menjadi nama txt yang ingin digunakan. PASTIKAN FILE MEMILIKI FORMAT YANG SESUAI DENGAN dictionary.txt :')
+
+
 Untuk repository GUI adalah ada pada link [frontend](https://github.com/riyorax/Tucil3_13522061FE) dan [backend](https://github.com/riyorax/Tucil3_13522061BE), ikuti langkah pada README masing masing untuk penggunaanya
 
 
