@@ -27,4 +27,5 @@ public class Node implements Comparable<Node>{
     public List<String> getPaths() {
         return this.paths;
     }
+
 }

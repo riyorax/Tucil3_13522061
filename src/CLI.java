@@ -129,8 +129,11 @@ public class CLI {
                     }
                     System.out.println("Node traversed: " + solver.getNodeTraversed());
                     System.out.println("Runtime: " + (end-start) + "ms");
+                    System.out.println("Path Length: " + result.size());
                 }else{
-                    System.out.println("No path found");
+                    System.out.println("No solution found");
+                    System.out.println("Node traversed: " + solver.getNodeTraversed());
+                    System.out.println("Runtime: " + (end-start) + "ms");
                 }
 
             }catch (NoSuchElementException e) {
